@@ -1,0 +1,12 @@
+#N canvas 734 425 522 585 10;
+#X obj 97 26 notein;
+#X obj 97 58 mtof;
+#X obj 97 98 osc~;
+#X obj 97 140 lop~;
+#X obj 97 181 rev1~;
+#X obj 97 224 dac~;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 5 0;
