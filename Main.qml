@@ -194,10 +194,10 @@ auto n1 = std::make_shared<node_mock>(
   , outlets{n1_out}
   , [=] {
     auto elt = pop_front(n1_in->data.target<value_port>()->data);
+    elt.apply([] (auto ){ })
 });
 g.add_node(n1);
 '
-
     }
 
     Frame {
