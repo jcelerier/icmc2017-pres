@@ -1,14 +1,15 @@
 import QtQuick.Controls 2.2 as QC
 import Qt.labs.presentation 1.0
 import QtQuick 2.5
+import QtQuick.Layouts 1.3
 import QtMultimedia 5.5
 
 Presentation
 {
     id: presentation
     mouseNavigation: false
-    width: 1440
-    height: 900
+    width: 1280
+    height: 720
 
     Rectangle {
         anchors.fill: parent
@@ -85,25 +86,57 @@ Presentation
         title: "Problem"
         content: [
             "Interdependent input-output in processes",
-            "Easy: automation -> sound effect",
+            "Easy: automation → sound effect",
             "Easy: cumulated audio effects",
             "Harder: general computations"
         ]
     }
+
     Frame {
         title: "Problem"
-        Fun3 { }
+        id: probFrame
+        Fun3 { height: 0.8*parent.height; width: 0.8*parent.width; }
+
+        Text {
+            anchors.bottom: parent.bottom
+            font.pointSize: parent.height * 0.06
+            font.bold: true
+            font.family: frm.fontFamily
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Nodes may not always be active at the same time"
+        }
     }
 
     Frame {
         title: "Data model"
         content: [
-            "'Your Traditional Node Graph'",
-            "But: Add addresses to ports",
-            "Add implicit attributes to nodes: execution date, on/off",
+            "An usual node graph",
+            "Global environment",
+            "Extend ports with addresses",
+            "Extend nodes with attributes: execution date, on/off",
             "Special connection types",
-            "At each tick: a concrete graph built on-the-fly from the running nodes"
+            "At each tick: actual execution graph built on-the-fly from the running nodes"
         ]
+    }
+
+    CodeFrame {
+        title: "Environment"
+        code: "max:/foo/bar: float = 1.34
+max:/bob: string = 'hello world'
+audio:/in/0: audio
+midi:/in: midi
+"
+    }
+
+    Frame {
+        title: "Node"
+        Image {
+            source: "file:images/node-ex.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+            width: 0.7 * parent.width
+            height: 0.7 * parent.height
+        }
     }
 
     Frame {
@@ -141,11 +174,50 @@ Presentation
         ]
     }
 
+    currentSlide: 12
+    Frame {
+        title: "Connection types"
+        Row {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 1000
+            spacing: 30
+            Column {
+                spacing: 30
+                width: 300
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Strict"
+                    font.pointSize: 30
+                }
+                StrictConnection { width: 200; height: 500; anchors.horizontalCenter: parent.horizontalCenter }
+            }
+            Column {
+                spacing: 30
+                width: 300
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Glutton"
+                    font.pointSize: 30
+                }
+                GluttonConnection { width: 200; height: 500; anchors.horizontalCenter: parent.horizontalCenter }
+            }
+            Column {
+                spacing: 30
+                width: 300
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Delayed"
+                    font.pointSize: 30
+                }
+                DelayedConnection { width: 200; height: 500; anchors.horizontalCenter: parent.horizontalCenter }
+            }
+        }
+    }
 
     Frame {
         title: "Connection type: strict"
         content: [
-
+            "If a node at an end is disabled, the other ends will be disabled too"
         ]
     }
     Frame {
