@@ -34,9 +34,9 @@
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1372"
+     inkscape:window-width="1373"
      inkscape:window-height="855"
-     inkscape:window-x="68"
+     inkscape:window-x="67"
      inkscape:window-y="1"
      inkscape:window-maximized="1"
      fit-margin-top="0"
@@ -51,7 +51,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -108,7 +108,7 @@
          id="tspan4203"
          x="76.30751"
          y="174.02194"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Courier;-inkscape-font-specification:Courier">node = f(t, e)</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Courier;-inkscape-font-specification:Courier">node = (f,t,e)</tspan></text>
     <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:40px;line-height:125%;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -149,7 +149,7 @@
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Fira Code';-inkscape-font-specification:'Fira Code, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start"
          y="37.886593"
          x="130.05984"
-         sodipodi:role="line"></tspan><tspan
+         sodipodi:role="line" /><tspan
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:20px;line-height:125%;font-family:'Fira Code';-inkscape-font-specification:'Fira Code, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start"
          y="62.886593"
          x="130.05984"

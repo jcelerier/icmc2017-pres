@@ -38,21 +38,29 @@ Presentation
     }
 
     Frame {
-        title: "General problem: fusion of temporal and dataflow model"
-        content: [
-            // séquenceurs
-
-            // ableton: max4live
-            // bitwig: dataflow (abandonné ?)
-            // logic pro: environment
-        ]
+        title: "General question: convergence of temporal and dataflow model"
+        Image {
+            source: "file:images/logic-environment.png"
+            anchors.fill: parent
+            fillMode: Image.PreserveAspectFit
+        }
     }
 
-    //currentSlide: 4
     Frame {
-        title: "Temporal model"
-        Rectangle {
+        title: "General question: convergence of temporal and dataflow model"
+        Image {
+            source: "file:images/max4live.png"
             anchors.fill: parent
+            fillMode: Image.PreserveAspectFit
+        }
+    }
+
+    Frame {
+        title: "Temporal model we work with"
+        Rectangle {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 0.8 * parent.width
+            height: 0.93 * parent.height
             color: "white"
             border.color: "black"
             radius: 15
@@ -64,11 +72,17 @@ Presentation
                 fillMode: Image.PreserveAspectFit
             }
         }
+        Caption {
+            text: "Described in [1]"
+        }
+
     }
     Frame {
         title: "Implemented in..."
         Rectangle {
-            anchors.fill: parent
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 0.8 * parent.width
+            height: 0.93 * parent.height
             color: "white"
             border.color: "black"
             radius: 15
@@ -80,8 +94,12 @@ Presentation
                 fillMode: Image.PreserveAspectFit
             }
         }
-    }
 
+        Caption {
+            text: "Ossia Score: www.ossia.io"
+        }
+    }
+    /*
     Frame {
         title: "Problem"
         content: [
@@ -91,51 +109,17 @@ Presentation
             "Harder: general computations"
         ]
     }
+    */
 
     Frame {
         title: "Problem"
         id: probFrame
-        Fun3 { height: 0.8*parent.height; width: 0.8*parent.width; }
 
-        Text {
-            anchors.bottom: parent.bottom
-            font.pointSize: parent.height * 0.06
-            font.bold: true
-            font.family: frm.fontFamily
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "Nodes may not always be active at the same time"
-        }
-    }
+        Fun3 { anchors.horizontalCenter: parent.horizontalCenter; height: 0.8*parent.height; width: 0.8*parent.width; }
 
-    Frame {
-        title: "Data model"
-        content: [
-            "An usual node graph",
-            "Global environment",
-            "Extend ports with addresses",
-            "Extend nodes with attributes: execution date, on/off",
-            "Special connection types",
-            "At each tick: actual execution graph built on-the-fly from the running nodes"
-        ]
-    }
-
-    CodeFrame {
-        title: "Environment"
-        code: "max:/foo/bar: float = 1.34
-max:/bob: string = 'hello world'
-audio:/in/0: audio
-midi:/in: midi
-"
-    }
-
-    Frame {
-        title: "Node"
-        Image {
-            source: "file:images/node-ex.png"
-            fillMode: Image.PreserveAspectFit
-            anchors.centerIn: parent
-            width: 0.7 * parent.width
-            height: 0.7 * parent.height
+        Caption {
+            text: "Nodes may not always be active at the same time.
+OK for [sfplay~] & [+~], not so much for deeper functional dependencies"
         }
     }
 
@@ -147,7 +131,7 @@ midi:/in: midi
             anchors.fill: parent
             Rectangle {
                 width: 0.6* parent.width
-                height: 0.6 * parent.height
+                height: 0.7 * parent.height
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: "white"
                 border.color: "black"
@@ -155,26 +139,57 @@ midi:/in: midi
                 PdObj {
                     content: Image {
                         source: "file:images/minipd.png"
+                        height: 0.95 * parent.height
                         fillMode: Image.PreserveAspectFit
                     }
                 }
             }
-            Text {
-                font.family: frm.fontFamily
-                color: frm.textColor
-            }
         }
     }
 
-
     Frame {
-        title: "Details"
+        title: "Proposed data model"
         content: [
-            "Port types: audio, midi, osc"
+            "An usual node graph",
+            "Global & local environment",
+            "Extend ports with addresses in these environments",
+            "Extend nodes with attributes: execution date, on/off",
+            "Special connection types",
+            "At each tick: actual execution graph built on-the-fly from the running nodes"
         ]
     }
 
-    currentSlide: 12
+    CodeFrame {
+        title: "Environment"
+        codeFontSize: baseFontSize
+        code: "max:/foo/bar : float  = 1.34
+modul8:/fov  : string = \"hello world\"
+audio:/in/0  : audio  = [0.1, -0.1, ...]
+midi:/in     : midi   = note on(64, 127)
+..."
+    }
+    Frame {
+        title: "Environment"
+        content: [
+            "Graph nodes can read and write to the environment addresses",
+            "Three scopes considered: \n
+➡ Connection scope: only read-write to edges (patch cords)\n
+➡ Local environment: write to a data store without influencing the outside world\n
+➡ Global environment: write messages to the outside world directly"
+        ]
+    }
+
+    Frame {
+        title: "Node"
+        Image {
+            source: "file:images/node-ex2.png"
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+            width: 0.7 * parent.width
+            height: 0.7 * parent.height
+        }
+    }
+
     Frame {
         title: "Connection types"
         Row {
@@ -190,6 +205,11 @@ midi:/in: midi
                     font.pointSize: 30
                 }
                 StrictConnection { width: 200; height: 500; anchors.horizontalCenter: parent.horizontalCenter }
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "If an end is disabled, the other end is, too"
+                    font.pointSize: 24
+                }
             }
             Column {
                 spacing: 30
@@ -200,6 +220,11 @@ midi:/in: midi
                     font.pointSize: 30
                 }
                 GluttonConnection { width: 200; height: 500; anchors.horizontalCenter: parent.horizontalCenter }
+                Text {
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    text: "Nodes are always enabled and will read and write in the environment if the other side is disabled"
+                    font.pointSize: 24
+                }
             }
             Column {
                 spacing: 30
@@ -215,28 +240,27 @@ midi:/in: midi
     }
 
     Frame {
-        title: "Connection type: strict"
-        content: [
-            "If a node at an end is disabled, the other ends will be disabled too"
-        ]
-    }
-    Frame {
-        title: "Connection type: glutton"
-        content: [
-
-        ]
-    }
-    Frame {
-        title: "Connection type: delayed"
-        content: [
-
-        ]
-    }
-
-    CodeFrame
-    {
-        title: "QML"
-        code: ""
+        title: "Ordering"
+        Column {
+            width: parent.width
+            Image {
+                source: "file:images/conflict.png"
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: 400
+                fillMode: Image.PreserveAspectFit
+            }
+            Text {
+                font.family: frm.fontFamily
+                color: frm.textColor
+                font.pointSize: frm.fontSize
+                text: "Resolutions:<br/>
+➡ Random order, creation order, etc.<br/>
+➡ Give an explicit order: add a dependency edge between nodes.<br/>
+➡ Temporal ordering: <i>f</i> started before <i>g</i> ? <i>g ∘ f</i> : <i>f ∘ g</i>.<br/>
+➡ Hierarchical ordering (the order of the processes in score[3]).<br/>
+➡ If someone can devise correct semantics: map & fold ?<br/>"
+            }
+        }
     }
 
     Frame {
@@ -255,6 +279,7 @@ midi:/in: midi
     CodeFrame
     {
         title: "C++ API example"
+        codeFontSize: baseFontSize * 0.5;
         code: '
 graph g;
 auto param = device.create_node("/foo").create_parameter(val_type::FLOAT);
@@ -309,8 +334,21 @@ g.add_node(n1);
         title: "Conclusion"
         content: [
             "Live-coding : WIP",
-            "Inspiration: jamoma for audio"
+            "Inspiration: jamoma for audio",
 
+            "🌐: www.ossia.io ➡ Download ➡ score-icmc2017.zip",
+            "(Mac release; works on linux if compiled)",
+            "Source code: \n\t
+➡ Library: github.com/OSSIA/libossia (branch v3)\n\t
+➡ Software: github.com/OSSIA/score (branch feature/dataflow)\n\t"
+        ]
+    }
+    Frame {
+        title: "References"
+        content: [
+            "[1]: libpd",
+            "[2]: OSSIA: ...",
+            "[3]: iscore-addon-audio"
         ]
     }
 
